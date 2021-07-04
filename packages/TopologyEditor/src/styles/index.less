@@ -1,0 +1,288 @@
+@import './coreTopology-defaults.css';
+@import './coreTopology-demo.css';
+@import './demo.css';
+@import './iconfont.css';
+body{
+	padding:0;
+	margin:0;
+}
+.widget{
+	background:#f5f5f5;
+}
+.widget-header{
+	line-height:20px;
+	padding:0 15px;
+	border-bottom:1px solid #ddd;
+	display:flex;
+}
+.widget-header>h3,.widget-header-toolbar{
+	margin:0;
+	
+	flex:1;
+}
+.left-bottom{
+	background:#ececec; opacity:0.8;
+}
+.widget-header>h3{
+	padding:10px 0;
+}
+.widget-header-toolbar{
+	text-align:right;
+}
+.widget-header-toolbar>a{
+	display:inline-block;
+	line-height:46px;
+	text-decoration:none;
+	padding:0 20px;
+	color:#555;
+	font-weight:bold;
+	border-left:1px solid #ddd;
+}
+	.widget .widget-content{
+		padding: 0px;height: 640px;
+		overflow-y: hidden;
+		width: 100%;
+		display: -webkit-box;
+		display: -moz-box;
+		display: box;
+		display: -ms-box;
+		-moz-user-select:none;
+		-webkit-user-select:none;
+		-webkit-box-orient: horizontal;
+		-moz-box-orient: horizontal;
+		box-orient: horizontal;
+		-ms-flex-direction: row;
+	}
+	.widget-content>.right{
+		padding: 0px 10px;
+		background: #f5f5f5;
+		width: 190px;
+		border-style: none none none solid; border-color: #d1d1d1;border-width: 1px;
+	}
+	.widget-content>.right .row{
+		margin:0px;
+	}
+	.data-row{
+		display:flex;
+	}
+	.data-row .data-name,.data-row .data-value{
+		flex:1;
+	}
+	.widget-content>.left{
+		overflow: hidden;
+		background: #f5f5f5;
+		width: 80px;border-style: none dashed none none; border-color: #ccc;border-width: 1px;
+	}
+	.widget-content>.left>.left-page{
+		height: auto;
+		width: 80px;
+	    -webkit-transition:  all .3s;
+	    -moz-transition:  all .3s;
+	    -o-transition:  all .3s;
+	    -ms-transition:  all .3s;
+	    transition:  all .3s;
+	}
+	.panel-collapse.collapse{
+        height:0px;
+		opacity:0;
+	}
+	.panel-collapse{
+		overflow:hidden;
+		height:auto;
+		opacity:1;
+		transition:all .3s;
+	}
+	.center-page .item>div,.touch-move{
+		
+		background-color: #f5f5f5;
+		border-radius: 10px;
+		width: 80px;
+		height: 80px;
+		border-style: none; border-color: #ccc;border-width: 0px;
+		background-position: center 10px;
+		background-repeat: no-repeat;
+		cursor: pointer;
+	    transition:  opacity .3s;
+	}
+	.center-page .item>div{
+		
+		box-shadow: 0px 0px 3px 3px rgba(0,0,0,0.1);
+	}
+	.touch-move{
+	
+		box-shadow: 0px 0px 4px 4px rgba(0,0,0,0.2);
+	}
+	.center-page .item>div:hover{
+		opacity: 0.7;
+	}
+	.center-page .item>div:active{
+		opacity: 0.7;
+		
+	}
+	.center-page .item>div>center,.touch-move>center{
+		/*background: #f7f7f7;
+		border:1px solid #DADADA;
+		border-radius: 5px;
+		padding: 0px 4px;*/
+		color: #acacac;
+		font-size: 8pt;
+		position: relative;
+		top:38px;
+		text-align: center;
+		width: 80px;
+		font-size: 600;
+		
+	}
+	.center-page .item>div:before,.touch-move:before{
+		background-position: center;
+		background-size:cover;
+		background-repeat: no-repeat;
+		content: "";
+		position: relative;
+	}
+	.left-page .panel-heading{
+		padding: 0 6px 0 10px !important;
+		background: #ececec;
+		border-bottom: 1px dashed #ccc;
+	}
+	.left-page .panel-group .panel .panel-title{
+		line-height:25px;
+		margin:0;
+	}
+	.left-page .panel-group .panel .panel-title > a {
+			font-weight: 600;
+	}
+	.left-page .panel{
+		border: none !important;
+	}
+	.left-page .panel-body{
+  		border-top: none !important;
+		padding: 0px;
+	}
+	.left-page .panel-body>div{
+		background-color: #f5f5f5;
+		width: 80px;
+		height: 80px;
+		border-style: none none dashed none; border-color: #d1d1d1;border-width: 1px;
+		background-position: center 10px;
+		background-repeat: no-repeat;
+		cursor: pointer;
+	}
+	.left-page .panel-body>div:hover{
+		background-color: #ececec;
+	}
+	.left-page .panel-body>div:before{
+		background-position: center;
+		background-size:cover;
+		background-repeat: no-repeat;
+		content: "";
+		position: relative;
+	}
+	.center-page .i-topology-removesign,.left-page .i-topology-removesign,.touch-move .i-topology-removesign{
+		display: none;
+	}
+	.center-page .item:hover .i-topology-removesign{
+		display: block;
+		position: absolute;
+		margin-left:75px;
+		margin-top:-30px;
+	}
+	
+	.left-page .panel-body>div>center{
+		/*background: #f7f7f7;
+		border:1px solid #DADADA;
+		border-radius: 5px;
+		padding: 0px 4px;*/
+		color: #acacac;
+		font-size: 8pt;
+		position: relative;
+		top:38px;
+		text-align: center;
+		width: 80px;
+		font-size: 600;
+		
+	}
+	.panel-group .open .i-topology-angle-down::before{
+		position:absolute;
+		transform:rotate(-180deg);
+	}
+	.widget-content>.left>span{
+		display: block;
+		position: absolute;
+		margin-top: 620px;
+		width: 80px;
+		letter-spacing:-3px;
+	}
+	.widget-content>.left>span>a{
+		cursor:pointer;
+		text-decoration:none;
+		display:inline-block;
+		font-size: 8pt;
+		color: #555;
+		width: 39px;
+		padding:0px 0px;
+		text-align: center;
+	}
+	.widget-content>.left>span>a:first-child{
+		border-style: none dashed none none; border-color: #ccc;border-width: 1px;
+	}
+	.widget-content>.left>span>a:hover{
+		text-decoration: underline;
+		background: #ececec;
+		color: #333;
+	}
+	
+	.widget-content>.center{
+		box-flex: 1;
+		-ms-flex: 1;
+		-webkit-box-flex: 1;
+		-moz-box-flex: 1;
+		overflow: auto;
+		height: 640px;
+	}
+	.widget-content>.center>.center-page{
+		width: 1771px;
+		height: auto;
+		
+	}
+	
+	.widget-content>.center>.center-page .item{
+		width: 160px;
+		height: 160px;
+		display: inline-block;
+		border-style: none dashed dashed none;
+		border-color: #d6d6d6;
+		border-width: 1px;
+		vertical-align: top;
+	}
+		
+	.widget input[type=text]{
+		line-height: 24px;
+		padding: 0 5px;
+		background-color: transparent;
+		border:1px solid #ddd;
+		border-style: none none solid none;
+		outline: none; 
+	}
+	[draggable=true] {
+	  -khtml-user-drag: element;
+	}
+.scrollbar::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  /**/
+}
+.scrollbar::-webkit-scrollbar-track {
+  background: #dddddd;
+  border-radius: 2px;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #cccccc;
+  border-radius: 10px;
+}
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #333;
+}
+.scrollbar::-webkit-scrollbar-corner {
+  background: #cccccc;
+}
