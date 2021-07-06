@@ -10,6 +10,10 @@
     "build": "vue-cli-service build",
     "build-lib": "vue-cli-service build --target lib --name drag-topology-editor-vue3 --dest lib packages/index.js"
   },
+  "repository": {
+	  "type": "git",
+	  "url": "git@github.com:lindongchen/drag-topology-editor-vue3.git"
+  },
   "dependencies": {
     "core-js": "^3.6.5",
     "vue": "^3.0.11"
