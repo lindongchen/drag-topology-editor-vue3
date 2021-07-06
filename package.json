@@ -1,6 +1,6 @@
 {
   "name": "drag-topology-editor-vue3",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "private": false,
   "main": "lib/drag-topology-editor-vue3.umd.min.js",
   "description": "This is a editor for topology dragable (vue 3.0)",

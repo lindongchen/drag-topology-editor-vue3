@@ -395,7 +395,7 @@
             }
             else if (this.updateNode != null) {
                 this.updateNode(this.node);
-            }
+            } 
             _applyStyles(this.svg, this.node, s, [ this.x, this.y, this.w, this.h ], this);
             _pos(this.node, [ this.x, this.y ]);
         }.bind(this);

@@ -1,6 +1,6 @@
 <template>
 	<div class="widget">
-		<div class="widget-header">
+		<div class="widget-header" >
 			<h3><i class="i-topology i-topology-magic"></i> <input type="text" placeholder="Name" v-model="data.title"/></h3>
 			<div class="widget-header-toolbar">
 				<a @click="clear" href="javascript:void(0)" ><i class="i-topology i-topology-clear"></i> Clear</a>
@@ -26,7 +26,7 @@
 									</h4>
 								</div>
 								<div :class="menu[menukey].open?'':'collapse'" class="panel-collapse in" :id="'collapse'+menuindex">
-									<div class="panel-body" >
+									<div class="panel-body" > 
 										<div :title="menukey" style="text-align: center;" v-for="(submenukey,submenuindex) in Object.keys(menu[menukey].submenu)"
 										 :class="submenukey" draggable="true"><i class="i-topology i-topology-removesign"></i><span class="center">{{submenukey}}</span></div>
 									</div>
@@ -38,8 +38,8 @@
 			</div>
 			<div class="center scrollbar" >
 				<div class="center-page" @dragover.prevent @drop.stop="centerpage_drop" id="center-page" data-demo-id="statemachine" data-library="dom">
-			        <div class="jtk-demo-main" style="max-width:none">
-				    	<div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="canvas">
+			        <div class="jtk-demo-main" style="max-width:none;position: relative;" >
+				    	<div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="canvas" style="position: relative;" >
 							<div class="row" v-for="(y,yindex) in data.layout_y">
 								<div class="item" :id="'item-'+yindex+'-'+xindex" v-for="(x,xindex) in data.layout_x"> </div>
 							</div>
@@ -121,40 +121,45 @@
 // 		"E":"/Scripts/MyModle/FM"
 // 	},
 // 	urlArgs: "bust=" + (new Date()).getTime()//禁止缓存
-// })
-delete window.coreTopologyUtil;
-delete window.coreTopologyUIComponent;
-delete window.coreTopologyInstance;
-delete window.coreTopology;
-delete window.Biltong; 
-delete window.Katavorio;
-delete window.$;
-var require_cache_keys = Object.keys(require.cache);
-require_cache_keys.forEach((key)=>{
-	if(key.indexOf('coreTopologyJs')>0){
-		delete require.cache[key];
-	}
-}); 
-require("./coreTopologyJs/jsBezier.js");
-require("./coreTopologyJs/mottle.js");
-require("./coreTopologyJs/biltong.js");
-require("./coreTopologyJs/katavorio.js");
-require("./coreTopologyJs/util.js");
-require("./coreTopologyJs/browser-util.js");
-require("./coreTopologyJs/coreTopology.js");
-require("./coreTopologyJs/dom-adapter.js");
-require("./coreTopologyJs/overlay-component.js");
-require("./coreTopologyJs/endpoint.js");
-require("./coreTopologyJs/connection.js");
-require("./coreTopologyJs/anchors.js");
-require("./coreTopologyJs/defaults.js");
-require("./coreTopologyJs/connectors-bezier.js");
-require("./coreTopologyJs/connectors-statemachine.js");
-require("./coreTopologyJs/renderers-svg.js");
-require("./coreTopologyJs/base-library-adapter.js");
-require("./coreTopologyJs/dom.coreTopology.js");
-require("./coreTopologyJs/demo.js");
+// }) 
+const install = ()=>{
 
+	delete window.coreTopology;
+	delete window.coreTopologyUtil;
+	delete window.coreTopologyUIComponent;
+	delete window.coreTopologyInstance;
+	delete window.Biltong; 
+	delete window.Katavorio;
+	delete window.$;
+	var require_cache_keys = Object.keys(require.cache);
+	require_cache_keys.forEach((key)=>{
+		if(key.indexOf('coreTopologyJs')>0 
+		// && key.indexOf('coreTopologyJs/coreTopology.js')<0
+		){
+			delete require.cache[key];
+		} 
+	});
+	__webpack_module_cache__ = {};
+	require("./coreTopologyJs/jsBezier.js");
+	require("./coreTopologyJs/mottle.js");
+	require("./coreTopologyJs/biltong.js");
+	require("./coreTopologyJs/katavorio.js");
+	require("./coreTopologyJs/util.js");
+	require("./coreTopologyJs/browser-util.js");
+	require("./coreTopologyJs/coreTopology.js");
+	require("./coreTopologyJs/dom-adapter.js");
+	require("./coreTopologyJs/overlay-component.js");
+	require("./coreTopologyJs/endpoint.js");
+	require("./coreTopologyJs/connection.js");
+	require("./coreTopologyJs/anchors.js");
+	require("./coreTopologyJs/defaults.js");
+	require("./coreTopologyJs/connectors-bezier.js");
+	require("./coreTopologyJs/connectors-statemachine.js");
+	require("./coreTopologyJs/renderers-svg.js");
+	require("./coreTopologyJs/base-library-adapter.js");
+	require("./coreTopologyJs/dom.coreTopology.js");
+	require("./coreTopologyJs/demo.js");
+}
 import { getCurrentInstance, computed, reactive, watch,onUnmounted,onBeforeUnmount } from 'vue';
 import './styles/index.less' // global css
 export default {
@@ -177,8 +182,10 @@ export default {
 			default:[]
 		},
 	},
+	beforeCreate() {
+install()
+	},
   setup(props, ctx) {
-	  
 	  //$.scrollTo("#body-start",0);
       const menu = computed(() => props.menu);
 	  const data = reactive({
@@ -276,7 +283,7 @@ export default {
 	  // 		event.preventDefault();
 	  // 	}
 	  }
-	
+ 
 	  let centerpage_drop = (event) => { 
 	  	if(event.target.classList.contains('item') && data.drag_target){
 	  		if(data.drag_target.id){
@@ -284,7 +291,6 @@ export default {
 	  		}else{ 
 	  			var clone = data.drag_target.cloneNode(true);
 	  			var clone_id = "topologychartWindow"+(window.$.coreTopology.Endpoints_length+1);
-				debugger;
 	  			var _data = {
 	  				id:clone_id,
 	  				ip:'unset',
@@ -362,12 +368,11 @@ export default {
 		rtn.name = data.name;
 	  	ctx.emit('save',rtn)
 		return rtn;
-	  } 
+	  }
 	  let load = ()=>{
 		  setTimeout(()=>{
-		  clear();  
+		  clear();   
 			  for(var i = 0;i<data.endpoints.length;i++){
-				  debugger
 			  	var _data = data.endpoints[i];
 			  	add_endpoints(document.querySelector('.left-page .'+_data.type).cloneNode(true),_data)
 			  }
@@ -375,8 +380,7 @@ export default {
 			  	var _data = data.lines[i];
 			  	window.$.coreTopology.addLine(_data);
 			  }
-		  },100)
-
+		  },100) 
 	  }
 	  let add_endpoints = (clone,_data) => {
 	  	clone.id= _data.id;
@@ -449,13 +453,15 @@ export default {
 
 	  	});
 	  }
-	  let clear = () => { 
-		  window.$.coreTopology.instance.reset();
-		  // window.$.coreTopology.instance.clear(); 
+	  let clear = () => {
+		  if(window.$&&window.$.coreTopology){
+			  window.$.coreTopology.instance.reset();
+			  window.$.coreTopology.instance.clear(); 
+		  }
 		  var _tragets = document.querySelectorAll(".center .item .coretopology-draggable");
 		  _tragets.forEach((node)=>{
 			  node.parentNode.removeChild(node);
-		  }); 
+		  });
 	  };
 	  watch(()=>props.title,(val)=>{
 	  	data.title=val

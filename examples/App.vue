@@ -6,9 +6,9 @@
   </div>
 </template>
 <script>
-import TopologyEditor from './../packages/index';
-// import TopologyEditor from './../lib/drag-topology-editor-vue3.umd.min.js';
-// import './../lib/drag-topology-editor-vue3.css';
+// import TopologyEditor from './../packages/index';
+import TopologyEditor from './../lib/drag-topology-editor-vue3.umd.js';
+import './../lib/drag-topology-editor-vue3.css';
 
 export default {
   name: "App",
@@ -18,7 +18,7 @@ export default {
 		lines:[
 			{"id":"con_28","key":"topologychartWindow1_Continuous-topologychartWindow3_Continuous","sourceAnchor":"Continuous","targetAnchor":"Continuous","sourceId":"topologychartWindow1","targetId":"topologychartWindow3","port":"80"},
 			{"id":"con_33","key":"topologychartWindow1_Continuous-topologychartWindow2_Continuous","sourceAnchor":"Continuous","targetAnchor":"Continuous","sourceId":"topologychartWindow1","targetId":"topologychartWindow2","port":"80"}
-		],
+		], 
 		endpoints:[
 			{"id":"topologychartWindow1","type":"LVS","ip":"192.168.1.1","top":"50px","left":"","parent_id":"item-0-1",attr:[{label:'Attr A',type:'label',value:'A'},{label:'Attr B',type:'input',value:'B'}]},
 			{"id":"topologychartWindow2","type":"PostgreSQL","ip":"192.168.1.1","top":"50px","left":"","parent_id":"item-0-3",attr:[{label:'Attr A',type:'label',value:'A'},{label:'Attr B',type:'input',value:'B'}]},
@@ -74,6 +74,8 @@ export default {
 	  save(data){
 		  alert(data);
 	  }
+  },
+  mounted(){
   }
 };
 </script>

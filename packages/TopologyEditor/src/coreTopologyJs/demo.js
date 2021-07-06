@@ -6,7 +6,7 @@ coreTopology.ready(function () {
     var instance = coreTopology.getInstance({
         Endpoint: ["Dot", {radius: 2}],
         Connector:"StateMachine",
-        HoverPaintStyle: {strokeStyle: "#1e8151", lineWidth: 2 },
+        HoverPaintStyle: {strokeStyle: "orange", lineWidth: 2 },
         ConnectionOverlays: [
             [ "Arrow", {
                 location: 1,
@@ -16,16 +16,14 @@ coreTopology.ready(function () {
             } ],
             [ "Label", { label: "PORT", id: "label", cssClass: "aLabel" }]
         ],
-        Container: "svg"
-    });
-
+		// RenderMode:'canvas',
+        Container: "canvas"  
+    }); 
+ 
     instance.registerConnectionType("basic", { anchor:"Continuous", connector:"StateMachine" });
-
     $.coreTopology.instance = window.jsp = instance;
-
     // var canvas = document.getElementById("canvas");
-    var windows = coreTopology.getSelector(".statemachine-demo .w");
-
+    // var windows = coreTopology.getSelector(".statemachine-demo .w");
     // bind a click listener to each connection; the connection is deleted. you could of course
     // just do this: coreTopology.bind("click", coreTopology.detach), but I wanted to make it clear what was
     // happening.
@@ -92,7 +90,7 @@ coreTopology.ready(function () {
         var id = coreTopologyUtil.uuid();
         dom.classList.add("w");
         //dom.id = id;
-        //instance.getContainer().appendChild(dom);
+        // instance.getContainer().appendChild(dom);
 		var _div = document.createElement("div")
 		_div.classList.add("ep")
 		_div.setAttribute("action",dom.id)

@@ -643,8 +643,12 @@
         //
         //
             _appendElement = function (el, parent) {
+				//document.querySelector('#canvas').appendChild(div);
                 if (_container)
                     _container.appendChild(el);
+					if(_container.id){
+						document.querySelector('#'+_container.id).appendChild(el);
+					}
                 else if (!parent)
                     this.appendToRoot(el);
                 else
@@ -1919,7 +1923,7 @@
                     sizes[elId] = _currentInstance.getSize(s);
                     offsets[elId] = _currentInstance.getOffset(s);
                     offsetTimestamps[elId] = timestamp;
-                }
+                } 
             } else {
                 offsets[elId] = offset || offsets[elId];
                 if (sizes[elId] == null) {
@@ -1928,7 +1932,11 @@
                 }
                 offsetTimestamps[elId] = timestamp;
             }
-
+			var _domOffset = document.querySelector('#'+elId);
+			if(_domOffset){ 
+				offsets[elId].left = _domOffset.offsetLeft;
+				offsets[elId].top = _domOffset.offsetTop;
+			}
             if (offsets[elId] && !offsets[elId].right) {
                 offsets[elId].right = offsets[elId].left + sizes[elId][0];
                 offsets[elId].bottom = offsets[elId].top + sizes[elId][1];
@@ -3060,7 +3068,6 @@
     };
 // maybe register static instance as an AMD module, and getInstance method too.
   //   if (typeof define === "function") {
-		// debugger
   //       define("coretopology", [], function () {
   //           return coreTopology;
   //       });
