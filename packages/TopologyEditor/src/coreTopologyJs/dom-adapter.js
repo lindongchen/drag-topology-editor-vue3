@@ -295,7 +295,7 @@
         },
 
         createElementNS:function(ns, tag, style, clazz, atts) {
-            var e = ns == null ? document.createElement(tag) : document.createElementNS(ns, tag);
+            var e = ns == null ? document.createElement(tag) : document.createElementNS(ns, tag); 
             var i;
             style = style || {};
             for (i in style)

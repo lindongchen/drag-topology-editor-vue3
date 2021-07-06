@@ -10,7 +10,6 @@
         var key = "_katavorio_" + category;
         var k = instance[key],
             e = instance.getEventManager();
-
         if (!k) {
             k = new _jk({
                 bind: e.on,

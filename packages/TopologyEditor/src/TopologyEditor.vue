@@ -7,14 +7,13 @@
 				<a @click="save" href="javascript:void(0)" ><i class="i-topology i-topology-ok"></i> Save</a>
 			</div>
 		</div>
-		<div class="widget-content" @touchmove="widgetcontent_touchmove" @touchend="widgetcontent_touchend">
+		<div class="widget-content"  >
 			<div class="left" >
 				<span class="left-bottom">
 					<a class="i-topology i-topology-triangle-top" id="left-page-up" @click="leftpageup_click"></a>
 					<a class="i-topology i-topology-triangle-bottom" id="left-page-down" @click="leftpagedown_click"></a>
 				</span>
-				<div class="left-page" id="left-page" :style="'margin-top:'+data.leftpageMarginTop" @dragstart="leftpage_dragstart" @touchstart="leftpage_touchstart">
-					
+				<div class="left-page" id="left-page" :style="'margin-top:'+data.leftpageMarginTop" @dragstart.stop="leftpage_dragstart" >
 					<div class="panel-group" id="panel-group" >
 						<div class="panel panel-default">
 							<div v-for="(menukey,menuindex) in Object.keys(menu)" :class="menu[menukey].open?'open':''">
@@ -28,8 +27,8 @@
 								</div>
 								<div :class="menu[menukey].open?'':'collapse'" class="panel-collapse in" :id="'collapse'+menuindex">
 									<div class="panel-body" >
-										<div :title="menukey" v-for="(submenukey,submenuindex) in Object.keys(menu[menukey].submenu)"
-										 :class="submenukey" draggable="true"><i class="i-topology i-topology-removesign"></i><center>{{submenukey}}</center></div>
+										<div :title="menukey" style="text-align: center;" v-for="(submenukey,submenuindex) in Object.keys(menu[menukey].submenu)"
+										 :class="submenukey" draggable="true"><i class="i-topology i-topology-removesign"></i><span class="center">{{submenukey}}</span></div>
 									</div>
 								</div>
 							</div>
@@ -38,7 +37,7 @@
 				</div>
 			</div>
 			<div class="center scrollbar" >
-				<div class="center-page" @dragover="centerpage_dragover" @drop="centerpage_drop" id="center-page" data-demo-id="statemachine" data-library="dom">
+				<div class="center-page" @dragover.prevent @drop.stop="centerpage_drop" id="center-page" data-demo-id="statemachine" data-library="dom">
 			        <div class="jtk-demo-main" style="max-width:none">
 				    	<div class="jtk-demo-canvas canvas-wide statemachine-demo jtk-surface jtk-surface-nopan" id="canvas">
 							<div class="row" v-for="(y,yindex) in data.layout_y">
@@ -56,6 +55,7 @@
 					<div class="row" style="text-align: center;color:#999"><em>- none -</em></div>
 				</div>
 				<div id="right-endpoint" v-show="data.right.type=='endpoints'">
+					<div class="touch-move" :class="data.right.title" style="box-shadow: none;margin: 20px auto auto auto;border-radius: 50%;background-position: center;border:1px dashed #ddd;background-color: transparent;"></div>
 					<div class="row" style="text-align: center;"><h3>{{data.right.title}}</h3></div>
 					<div class="row" v-if="data.right.index>-1 && data[data.right.type][data.right.index].attr">
 						<p class="data-row"  v-for="(rkey,rindex) in data[data.right.type][data.right.index].attr" >
@@ -90,7 +90,6 @@
 								{{data.right.target}}
 							</span>
 						</p>
-						
 						<p class="data-row">
 							<b class="data-name">
 								Port								
@@ -116,27 +115,47 @@
 		</div>
 	</div>
 </template>
+<script> 
+// require.config({
+// 	paths: {
+// 		"E":"/Scripts/MyModle/FM"
+// 	},
+// 	urlArgs: "bust=" + (new Date()).getTime()//禁止缓存
+// })
+delete window.coreTopologyUtil;
+delete window.coreTopologyUIComponent;
+delete window.coreTopologyInstance;
+delete window.coreTopology;
+delete window.Biltong; 
+delete window.Katavorio;
+delete window.$;
+var require_cache_keys = Object.keys(require.cache);
+require_cache_keys.forEach((key)=>{
+	if(key.indexOf('coreTopologyJs')>0){
+		delete require.cache[key];
+	}
+}); 
+require("./coreTopologyJs/jsBezier.js");
+require("./coreTopologyJs/mottle.js");
+require("./coreTopologyJs/biltong.js");
+require("./coreTopologyJs/katavorio.js");
+require("./coreTopologyJs/util.js");
+require("./coreTopologyJs/browser-util.js");
+require("./coreTopologyJs/coreTopology.js");
+require("./coreTopologyJs/dom-adapter.js");
+require("./coreTopologyJs/overlay-component.js");
+require("./coreTopologyJs/endpoint.js");
+require("./coreTopologyJs/connection.js");
+require("./coreTopologyJs/anchors.js");
+require("./coreTopologyJs/defaults.js");
+require("./coreTopologyJs/connectors-bezier.js");
+require("./coreTopologyJs/connectors-statemachine.js");
+require("./coreTopologyJs/renderers-svg.js");
+require("./coreTopologyJs/base-library-adapter.js");
+require("./coreTopologyJs/dom.coreTopology.js");
+require("./coreTopologyJs/demo.js");
 
-<script>
-require("./js/jsBezier.js");
-require("./js/mottle.js");
-require("./js/biltong.js");
-require("./js/katavorio.js");
-require("./js/util.js");
-require("./js/browser-util.js");
-require("./js/coreTopology.js");
-require("./js/dom-adapter.js");
-require("./js/overlay-component.js");
-require("./js/endpoint.js");
-require("./js/connection.js");
-require("./js/anchors.js");
-require("./js/defaults.js");
-require("./js/connectors-bezier.js");
-require("./js/connectors-statemachine.js");
-require("./js/renderers-svg.js");
-require("./js/base-library-adapter.js");
-require("./js/dom.coreTopology.js");
-import { getCurrentInstance, computed, reactive, watch } from 'vue';
+import { getCurrentInstance, computed, reactive, watch,onUnmounted,onBeforeUnmount } from 'vue';
 import './styles/index.less' // global css
 export default {
   name: "TopologyEditor",
@@ -159,6 +178,7 @@ export default {
 		},
 	},
   setup(props, ctx) {
+	  
 	  //$.scrollTo("#body-start",0);
       const menu = computed(() => props.menu);
 	  const data = reactive({
@@ -197,13 +217,15 @@ export default {
 	  	}
 	  }
 	  //left-page
-	  let leftpage_dragstart = (event)=> { 
-	  	data.drag_target=event.target;
-	  	 event.dataTransfer.setData('Text', data.drag_target.id);
+	  let leftpage_touchstart = (event)=> { 
+	  	// data.drag_target=event.target;
+	  	// data.drag_clone.style.left = event.targetTouches[0].clientX-20 + "px";
+	  	// data.drag_clone.style.top = event.targetTouches[0].clientY-20 + "px";
+	  	//  event.dataTransfer.setData('Text', data.drag_target.id);
 	  };
 	  
-	  let leftpage_touchstart = (event)=> { 
-	  	window.addEventListener('DOMMouseScroll', function(e) { preventDefault(e);}, false);
+	  let leftpage_dragstart = (event)=> { 
+	  	window.addEventListener('DOMMouseScroll', function(e) { preventDefault(e);}, { passive: false });
 	  	data.drag_target=event.target;
 	  	
 	  	data.drag_clone = data.drag_target.cloneNode(true);
@@ -211,21 +233,21 @@ export default {
 	  	data.drag_clone.style.zIndex="20000";
 	  	data.drag_clone.style.pointerEvents="none";
 	  	data.drag_clone.classList.add("touch-move");
-	  	data.drag_clone.style.left = event.targetTouches[0].clientX-20 + "px";
-	  	data.drag_clone.style.top = event.targetTouches[0].clientY-20 + "px";
-	  	document.body.appendChild(data.drag_clone);
+	  	// data.drag_clone.style.left = event.targetTouches[0].clientX-20 + "px";
+	  	// data.drag_clone.style.top = event.targetTouches[0].clientY-20 + "px";
+	  	// document.body.appendChild(data.drag_clone);
 	  	 //event.dataTransfer.setData('Text', drag_target.id);
 	  };
 	  //.widget-content
 	  let widgetcontent_touchmove = (event)=> { 
-	  	if(data.drag_clone){
-	  		if(event.target.classList.contains('item')){
-	  			data.drag_pid = event.target.id;
-	  		}
-	  		data.drag_clone.style.left = event.targetTouches[0].clientX-20 + "px";
-	  		data.drag_clone.style.top = event.targetTouches[0].clientY-20 + "px";
-	  		event.preventDefault();
-	  	}
+	  	// if(data.drag_clone){
+	  	// 	if(event.target.classList.contains('item')){
+	  	// 		data.drag_pid = event.target.id;
+	  	// 	}
+	  	// 	data.drag_clone.style.left = event.targetTouches[0].clientX-20 + "px";
+	  	// 	data.drag_clone.style.top = event.targetTouches[0].clientY-20 + "px";
+	  	// 	event.preventDefault();
+	  	// }
 	  }
 	  let widgetcontent_touchend = (event) => { 
 	  // 	if(data.drag_clone){
@@ -254,30 +276,27 @@ export default {
 	  // 		event.preventDefault();
 	  // 	}
 	  }
-	  
-	  //center-page
-	  let centerpage_dragover = (event)=> {  
-	      event.preventDefault();
-	  }
+	
 	  let centerpage_drop = (event) => { 
 	  	if(event.target.classList.contains('item') && data.drag_target){
 	  		if(data.drag_target.id){
 	  			event.target.appendChild(data.drag_target);
-	  		}else{
+	  		}else{ 
 	  			var clone = data.drag_target.cloneNode(true);
-	  			var clone_id = "topologychartWindow"+($.coreTopology.Endpoints_length+1);
+	  			var clone_id = "topologychartWindow"+(window.$.coreTopology.Endpoints_length+1);
+				debugger;
 	  			var _data = {
 	  				id:clone_id,
 	  				ip:'unset',
+					type:clone.className,
 					attr:JSON.parse(JSON.stringify(menu.value[clone.title].submenu[clone.className])),
 	  				parent_id:event.target.id
-	  			}
+	  			} 
 	  			data.endpoints.push(_data);
 	  			add_endpoints(clone,_data);
 	  		}
 	  	}
 	  	data.drag_target=null;
-	  	event.preventDefault();
 	  };
 	  data.targetLine=null;
 	  //right-port-select
@@ -328,9 +347,7 @@ export default {
 	  		
 	  	}
 	  };
-	  
 	  let save = ()=>{
-	  	
 	  	let rtn ={};
 	  	for(var i=0;i<data.endpoints.length;i++){
 	  		var endpoint = data.endpoints[i];
@@ -345,24 +362,23 @@ export default {
 		rtn.name = data.name;
 	  	ctx.emit('save',rtn)
 		return rtn;
-	  }
+	  } 
 	  let load = ()=>{
 		  setTimeout(()=>{
-			  clear();
+		  clear();  
 			  for(var i = 0;i<data.endpoints.length;i++){
+				  debugger
 			  	var _data = data.endpoints[i];
 			  	add_endpoints(document.querySelector('.left-page .'+_data.type).cloneNode(true),_data)
 			  }
-			  
 			  for(var i = 0;i<data.lines.length;i++){
 			  	var _data = data.lines[i];
-			  	$.coreTopology.addLine(_data);
+			  	window.$.coreTopology.addLine(_data);
 			  }
 		  },100)
 
 	  }
 	  let add_endpoints = (clone,_data) => {
-	  	
 	  	clone.id= _data.id;
 	  	document.querySelector('#'+_data.parent_id).appendChild(clone);
 	  	clone.setAttribute('option',clone.className);
@@ -386,7 +402,7 @@ export default {
 	  			var anchors_size = anchors.length-1;
 	  			//Endpoint.removeElement();
 	  			for(var j =anchors_size;j>=0;j--){
-	  				$.coreTopology.instance.deleteEndpoint(anchors[j]);
+	  				window.$.coreTopology.instance.deleteEndpoint(anchors[j]);
 	  			}
 	  		}
 			document.querySelector("#"+id).parentNode.removeChild(document.querySelector("#"+id));
@@ -395,22 +411,15 @@ export default {
 	  				data.endpoints.slice(i,1);
 	  			}
 	  		}
-	  		var line_size = data.lines.length;
+	  		var line_size = data.lines.length-1;
 	  		for(var i=line_size;i>=0;i--){
 	  			if(data.lines[i].key.indexOf(id.replace("topologychart",""))>-1){
 	  				data.lines.slice(i,1);
 	  			}
 	  		}
-	      }
-	  	/*clone[0].ondragstart = function (event) { 
-	  		drag_target=event.target;
-	          //event.dataTransfer.setData("Text", event.target);  
-	      };
-	      clone[0].ondragover = function (event)  {  
-	          event.preventDefault();  
-	      }*/
-	  	$.coreTopology.addEndpoints(clone);
-	  	$.coreTopology.fire((con) =>{
+	      } 
+	  	window.$.coreTopology.addEndpoints(clone);
+	  	window.$.coreTopology.fire((con) =>{
 	  		var index = null;
 	  		for(var i=0;i<data.lines.length;i++){
 	  			var _key = con.sourceId+"_"+con.endpoints[0].anchor.type+"-"+con.targetId+"_"+con.endpoints[1].anchor.type;
@@ -419,7 +428,6 @@ export default {
 	  			}
 	  		}
 	  		if(index == null){
-	  			
 	  			data.lines.push({
 	  				id:con.id,
 	  				key:con.sourceId+"_"+con.endpoints[0].anchor.type+"-"+con.targetId+"_"+con.endpoints[1].anchor.type,
@@ -429,11 +437,8 @@ export default {
 	  				targetId:con.targetId,
 	  				port:"80"
 	  			});	
-	  			
-	  				reloadRight('lines',con);
+	  			reloadRight('lines',con);
 	  		}else{
-	  			
-	  			
 	  			data.lines[index].id=con.id;
 	  			reloadRight('lines',con);
 	  		}
@@ -444,41 +449,36 @@ export default {
 
 	  	});
 	  }
-	  setTimeout(() => {
-	  	// demo code -->
-	  	require("./js/demo.js");
-	  })
-	  
-	  let clear = () => {
-		  $.coreTopology.instance.reset();
+	  let clear = () => { 
+		  window.$.coreTopology.instance.reset();
+		  // window.$.coreTopology.instance.clear(); 
 		  var _tragets = document.querySelectorAll(".center .item .coretopology-draggable");
 		  _tragets.forEach((node)=>{
 			  node.parentNode.removeChild(node);
-		  });
+		  }); 
 	  };
-	  
 	  watch(()=>props.title,(val)=>{
-	  		  data.title=val
+	  	data.title=val
 	  }, {  immediate: true  })
 	  watch(()=>data.title,(val)=>{
-	  		  ctx.emit('update:title',val)
-	  })
+	  	ctx.emit('update:title',val)
+	  }) 
 	  watch(()=>props.endpoints,(val)=>{
-	  		  data.endpoints=val
-	  			  load();
+	  	data.endpoints=val
+	  	load();
 	  }, {  immediate: true  })
 	  watch(()=>data.endpoints,(val)=>{
-	  		  ctx.emit('update:endpoints',val)
+	  	ctx.emit('update:endpoints',val)
 	  })
 	  watch(()=>props.lines,(val)=>{
-	  		  data.lines=val
-	  			  load();
+		data.lines=val
+		load();
 	  }, { immediate: true  })
 	  watch(()=>data.lines,(val)=>{
-	  		  ctx.emit('update:lines',val)
+	  	ctx.emit('update:lines',val)
 	  })
 	  return {
-		data,menu,leftpageup_click,leftpagedown_click,leftpage_dragstart,leftpage_touchstart,widgetcontent_touchmove,widgetcontent_touchend,centerpage_dragover,centerpage_drop,rightportselect_change,reloadRight,save,load,add_endpoints,clear
+		data,menu,leftpageup_click,leftpagedown_click,leftpage_dragstart,centerpage_drop,rightportselect_change,reloadRight,save,load,add_endpoints,clear
 	  }
   },
   components: {

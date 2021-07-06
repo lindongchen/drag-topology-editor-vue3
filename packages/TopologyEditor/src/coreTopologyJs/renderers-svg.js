@@ -165,21 +165,24 @@
                 "pointer-events": pointerEventsSpec,
                 "position": "absolute"
             };
-
         this.svg = _node("svg", svgParams);
-
+ 
         if (params.useDivWrapper) {
-            this.canvas = coreTopology.createElement("div", { position : "absolute" });
+            this.canvas = coreTopology.createElement("div", { position : "absolute" });//document.querySelector('#canvas')
             _ju.sizeElement(this.canvas, 0, 0, 1, 1);
             this.canvas.className = clazz;
-        }
+        } 
         else {
             _attr(this.svg, { "class": clazz });
             this.canvas = this.svg;
-        }
-
+        } 
         params._coreTopology.appendElement(this.canvas, params.originalArgs[0].parent);
-        if (params.useDivWrapper) this.canvas.appendChild(this.svg);
+			if(this.canvas.parentElement&&this.canvas.parentElement.id == 'canvas' && this.canvas.parentElement!=document.querySelector('#canvas')){
+				document.querySelector('#canvas').appendChild(this.canvas);
+			}
+        if (params.useDivWrapper){
+			this.canvas.appendChild(this.svg);
+		} 
 
         var displayElements = [ this.canvas ];
         this.getDisplayElements = function () {
@@ -200,7 +203,7 @@
                     wh[0] = extents.xmax + ((extents.xmin < 0) ? -extents.xmin : 0);
                     wh[1] = extents.ymax + ((extents.ymin < 0) ? -extents.ymin : 0);
                 }
-
+ 
                 if (params.useDivWrapper) {
                     _ju.sizeElement(this.canvas, xy[0], xy[1], wh[0], wh[1]);
                     xy[0] = 0;
@@ -261,7 +264,7 @@
     });
 
     /*
-     * Base class for SVG connectors.
+     * Base class for SVG connectors. 
      */
     _jp.ConnectorRenderers.svg = function (params) {
         var self = this,
@@ -273,7 +276,6 @@
                     _coreTopology: params._coreTopology
                 }
             ]);
-
         var _superSetEditable = this.setEditable;
         this.setEditable = function(e) {
             var result = _superSetEditable.apply(this, [e]);

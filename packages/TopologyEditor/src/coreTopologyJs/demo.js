@@ -1,9 +1,5 @@
-
-if(!window.$){
-	window.$={
-	}
-}
 coreTopology.ready(function () {
+	$={}
 	$.coreTopology={};
 	$.coreTopology.Endpoints_length = 0;
     // setup some defaults for coreTopology.
@@ -20,14 +16,14 @@ coreTopology.ready(function () {
             } ],
             [ "Label", { label: "PORT", id: "label", cssClass: "aLabel" }]
         ],
-        Container: "canvas"
+        Container: "svg"
     });
 
     instance.registerConnectionType("basic", { anchor:"Continuous", connector:"StateMachine" });
 
     $.coreTopology.instance = window.jsp = instance;
 
-    var canvas = document.getElementById("canvas");
+    // var canvas = document.getElementById("canvas");
     var windows = coreTopology.getSelector(".statemachine-demo .w");
 
     // bind a click listener to each connection; the connection is deleted. you could of course
@@ -106,7 +102,6 @@ coreTopology.ready(function () {
     };
 
 	$.coreTopology.addLine = function(data){
-		
 		 $.coreTopology.instance.connect({source: data.sourceId, target: data.targetId, type:"basic" , editable: true});
 	}
     // suspend drawing and initialise.
@@ -133,6 +128,7 @@ coreTopology.ready(function () {
         $.coreTopology.instance.unbind("connection");
         // listen for new connections; initialise them the same way we initialise the connections at startup.
         $.coreTopology.instance.bind("connection", function (con, originalEvent) {
+  
 			//connection.getOverlay("label").setLabel("[port]");
 			
 			var Endpoint = coreTopology.getSelector("#"+con.sourceId);
@@ -161,5 +157,5 @@ coreTopology.ready(function () {
         });
 		coreTopology.fire("coreTopologyDemoLoaded", $.coreTopology.instance);
 	}
-
+	window.$ = $;
 });

@@ -7,6 +7,9 @@
 </template>
 <script>
 import TopologyEditor from './../packages/index';
+// import TopologyEditor from './../lib/drag-topology-editor-vue3.umd.min.js';
+// import './../lib/drag-topology-editor-vue3.css';
+
 export default {
   name: "App",
   data() {

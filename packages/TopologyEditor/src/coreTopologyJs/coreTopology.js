@@ -1269,7 +1269,6 @@
             }
             return r;
         };
-
         this.connect = function (params, referenceParams) {
             // prepare a final set of parameters to create connection with
             var _p = _prepareConnectionParams(params, referenceParams), jpc;
@@ -1288,7 +1287,7 @@
                 _ensureContainer(_p.source);
                 // create the connection.  it is not yet registered
                 jpc = _newConnection(_p);
-                // now add it the model, fire an event, and redraw
+                // now add it the model, fire an event, and redraw 
                 _finaliseConnection(jpc, _p);
             }
             return jpc;
