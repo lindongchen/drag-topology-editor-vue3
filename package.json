@@ -1,6 +1,14 @@
 {
   "name": "drag-topology-editor-vue3",
-  "version": "1.0.9",
+  "version": "1.0.12",
+  "license": {
+	"type": "LGPL-2.1",
+	"url": "https://opensource.org/licenses/LGPL-2.1"
+  },
+  "author": {
+	"name": "Lin Dongchen",
+	"email": "393227948@qq.com"
+  },
   "private": false,
   "main": "lib/drag-topology-editor-vue3.umd.min.js",
   "description": "This is a editor for topology dragable (vue 3.0)",
