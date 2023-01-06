@@ -90,10 +90,10 @@
   </div>
 </template>
 <script>
-import TopologyEditor from './../../packages/index';
+// import TopologyEditor from './../../packages/index';
 import AutoItem from './components/AutoItem';
-// import TopologyEditor from './../lib/drag-topology-editor-vue3.umd.js';
-// import './../../lib/drag-topology-editor-vue3.css';
+import TopologyEditor from './../../lib/drag-topology-editor-vue3.umd.js';
+import './../../lib/drag-topology-editor-vue3.css';
 let namespaces = [{label:'ns1',value:'ns1'},{label:'ns2',value:'ns2'}];
 let methods = [{label:'*',value:'*'},{label:'GET',value:'GET'},{label:'POST',value:'POST'}];
 let accounts = [{label:'account1',value:'account1',namespace:'ns1'},{label:'account2',value:'account2',namespace:'ns1'}];
