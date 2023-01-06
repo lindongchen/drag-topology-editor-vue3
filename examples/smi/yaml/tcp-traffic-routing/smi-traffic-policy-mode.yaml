@@ -1,0 +1,32 @@
+# Enable SMI traffic policy mode by disabling permissive traffic policy mode
+# kubectl patch meshconfig osm-mesh-config -n "$osm_namespace" -p '{"spec":{"traffic":{"enablePermissiveTrafficPolicyMode":false}}}' --type=merge
+
+# TCP route to allows access to tcp-echo:9000
+apiVersion: specs.smi-spec.io/v1alpha4
+kind: TCPRoute
+metadata:
+name: tcp-echo-route
+namespace: tcp-demo
+spec:
+matches:
+    ports:
+    - 9000
+---
+# Traffic target to allow curl app to access tcp-echo service using a TCPRoute
+kind: TrafficTarget
+apiVersion: access.smi-spec.io/v1alpha3
+metadata:
+name: tcp-access
+namespace: tcp-demo
+spec:
+destination:
+    kind: ServiceAccount
+    name: tcp-echo
+    namespace: tcp-demo
+sources:
+- kind: ServiceAccount
+    name: curl
+    namespace: curl
+rules:
+- kind: TCPRoute
+    name: tcp-echo-route

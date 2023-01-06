@@ -39,7 +39,7 @@ body{
 	border-left:1px solid #ddd;
 }
 	.widget .widget-content{
-		padding: 0px;height: 640px;
+		padding: 0px;height: 670px;
 		overflow-y: hidden;
 		width: 100%;
 		display: -webkit-box;
@@ -129,7 +129,7 @@ body{
 		position: relative;
 		top:38px;
 		text-align: center;
-		width: 80px;
+		width: 100%;
 		font-size: 600;
 		
 	}
@@ -184,10 +184,12 @@ body{
 	.center-page .item:hover .i-topology-removesign{
 		display: block;
 		position: absolute;
-		margin-left:75px;
-		margin-top:-30px;
+		right:2px;
+		top:2px;
 	}
-	
+	.left-page .panel-body>div{
+		position: relative;
+	}
 	.left-page .panel-body>div>.center{
 		/*background: #f7f7f7;
 		border:1px solid #DADADA;
@@ -195,23 +197,43 @@ body{
 		padding: 0px 4px;*/
 		color: #acacac;
 		font-size: 8pt;
-		position: relative;
-		top:38px;
+		position: absolute;
+		bottom:5px;
+		left: 0;
+		right: 0;
 		text-align: center;
-		width: 80px;
+		width: 100%;
 		font-size: 600;
 		
+	}
+	.parentNode .ep+.childNode{
+		margin-top: 25px;
+	}
+	.childNode{
+		position: relative;
+		height: 30px;
+		line-height: 30px;
+		border-radius: 5px;
+		margin-left: 15px;
+		margin-right: 15px;
+		margin-bottom: 5px;
+		padding: 5px;
+		background-color: lightgoldenrodyellow;
 	}
 	.panel-group .open .i-topology-angle-down::before{
 		position:absolute;
 		transform:rotate(-180deg);
 	}
+	.widget-content>.left{
+		position: relative;
+	}
 	.widget-content>.left>span{
 		display: block;
 		position: absolute;
-		margin-top: 620px;
+		bottom: 0px;
 		width: 80px;
 		letter-spacing:-3px;
+		z-index: 2;
 	}
 	.widget-content>.left>span>a{
 		cursor:pointer;
@@ -238,7 +260,7 @@ body{
 		-webkit-box-flex: 1;
 		-moz-box-flex: 1;
 		overflow: auto;
-		height: 640px;
+		height: 670px;
 	}
 	.widget-content>.center>.center-page{
 		width: 1771px;

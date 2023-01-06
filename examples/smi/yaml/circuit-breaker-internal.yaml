@@ -1,0 +1,13 @@
+apiVersion: policy.openservicemesh.io/v1alpha1
+kind: UpstreamTrafficSetting
+metadata:
+  name: httpbin
+  namespace: httpbin
+spec:
+  host: httpbin.httpbin.svc.cluster.local
+  connectionSettings:
+    tcp:
+      maxConnections: 1
+    http:
+      maxPendingRequests: 1
+      maxRequestsPerConnection: 1

@@ -7,11 +7,11 @@ module.exports = {
 	runtimeCompiler: true,
 	lintOnSave:false,
 	devServer: {
-		disableHostCheck: true,
+		// disableHostCheck: true,
 	},
 	pages: {
 		index: {
-			entry: 'examples/main.js',
+			entry: 'examples/smi/main.js',
 			template: 'public/index.html',
 			filename: 'index.html'
 		}
@@ -22,5 +22,5 @@ module.exports = {
 			return options
 		})
 	},
-    productionSourceMap:false // 是否生成map文件
+	productionSourceMap:false 
 };

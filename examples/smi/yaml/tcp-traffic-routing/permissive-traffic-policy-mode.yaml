@@ -1,0 +1,2 @@
+# Enable permissive traffic policy mode
+# kubectl patch meshconfig osm-mesh-config -n "$osm_namespace" -p '{"spec":{"traffic":{"enablePermissiveTrafficPolicyMode":true}}}' --type=merge

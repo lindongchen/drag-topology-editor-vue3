@@ -44,13 +44,14 @@
 
 .ep {
     position: absolute;
-    bottom: 37%;
-    right: 5px;
-    width: 1em;
-    height: 1em;
+    bottom: 0px !important;
+    right: 0px !important;
+    width: 1.2em !important;
+    height: 1.2em !important;
     background-color: orange;
     cursor: pointer;
-    box-shadow: 0 0 2px black;
+    box-shadow: none !important;
+		border-radius:0 0 10px 0;
     -webkit-transition: -webkit-box-shadow 0.25s ease-in;
     -moz-transition: -moz-box-shadow 0.25s ease-in;
     transition: box-shadow 0.25s ease-in;

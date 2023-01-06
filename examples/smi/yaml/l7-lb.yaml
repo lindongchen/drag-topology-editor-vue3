@@ -1,0 +1,36 @@
+kind: TCPRoute
+metadata:
+  name: tcp-ports
+spec:
+  matches:
+    ports:
+    - 8301
+    - 8302
+    - 8300
+---
+kind: UDPRoute
+metadata:
+  name: udp-ports
+spec:
+  matches:
+    ports:
+    - 8301
+    - 8302
+---
+kind: TrafficTarget
+metadata:
+  name: protocal-specific
+spec:
+  destination:
+    kind: ServiceAccount
+    name: server
+    namespace: default
+  rules:
+  - kind: TCPRoute
+    name: tcp-ports
+  - kind: UDPRoute
+    name: udp-ports
+  sources:
+  - kind: ServiceAccount
+    name: client
+    namespace: default

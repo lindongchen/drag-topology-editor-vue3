@@ -16,4 +16,8 @@ import 'drag-topology-editor-vue3/lib/drag-topology-editor-vue3.css';
 ```
 ref ./examples
 ```
+### Local
+```
+npm run serve
+```
 ![image](https://github.com/lindongchen/drag-topology-editor-vue3/blob/main/demo.png)

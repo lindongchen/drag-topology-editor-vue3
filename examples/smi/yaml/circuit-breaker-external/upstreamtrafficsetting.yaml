@@ -1,0 +1,32 @@
+kind: UpstreamTrafficSetting
+metadata:
+  name: httpbin-external
+  namespace: client
+spec:
+  host: httpbin.httpbin.svc.cluster.local
+  connectionSettings:
+    tcp:
+      maxConnections: 1
+    http:
+      maxPendingRequests: 1
+      maxRequestsPerConnection: 1
+---
+kind: Egress
+apiVersion: policy.openservicemesh.io/v1alpha1
+metadata:
+  name: httpbin-external
+  namespace: client
+spec:
+  sources:
+  - kind: ServiceAccount
+    name: default
+    namespace: client
+  hosts:
+  - httpbin.httpbin.svc.cluster.local
+  ports:
+  - number: 14001
+    protocol: http
+  matches:
+  - apiGroup: policy.openservicemesh.io/v1alpha1
+    kind: UpstreamTrafficSetting
+    name: httpbin-external

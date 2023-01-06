@@ -1,0 +1,15 @@
+kind: Egress
+apiVersion: policy.openservicemesh.io/v1alpha1
+metadata:
+  name: httpbin-external
+  namespace: client
+spec:
+  sources:
+  - kind: ServiceAccount
+    name: default
+    namespace: client
+  hosts:
+  - httpbin.httpbin.svc.cluster.local
+  ports:
+  - number: 14001
+    protocol: http

@@ -1,0 +1,8 @@
+kind: TrafficSplit
+metadata:
+  name: canary
+spec:
+  service: website
+  backends:
+  - service: website-v2
+    weight: 100
